@@ -68,27 +68,26 @@ int main() {
                 std::stringstream ss;
                 ss << line;
                 std::string nums;
-                int firstTemp = 0, secondTemp = 0;
-                // only consider > 0, but not really good.
-                std::pair<int, int> pairTemp;
+                std::pair<int, int> tempPair;
+                std::pair<bool, bool> checkPair (false, false);
                 while (std::getline(ss, nums, ','))
                 {
                         try
                         {
                                 int x = std::stoi(nums);
 
-                                if(firstTemp == 0) {
-                                        firstTemp = x;
+                                if(checkPair.first == false) {
+                                        tempPair.first = x;
+                                        checkPair.first = true;
                                 } else {
-                                        secondTemp = x;
+                                        tempPair.second = x;
+                                        checkPair.second = true;
                                 }
 
-                                if (secondTemp != 0) {
-                                        pairTemp.first = firstTemp;
-                                        pairTemp.second = secondTemp;
-                                        numberVector.push_back(pairTemp);
-                                        firstTemp = 0;
-                                        secondTemp = 0;
+                                if (checkPair.second == true) {
+                                        numberVector.push_back(tempPair);
+                                        checkPair.first = false;
+                                        checkPair.second = false;
                                 }
                         } catch (std::invalid_argument const & e) {}
 
