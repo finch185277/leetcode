@@ -1,6 +1,6 @@
 class Solution {
 public:
-  inline bool check_valid_char(char &c) {
+  inline bool check_valid_char(const char &c) {
     if (c == ' ')
       return true;
     else if (c == '-' || c == '+')
@@ -10,7 +10,7 @@ public:
     else
       return false;
   }
-  int myAtoi(string str) {
+  int myAtoi(const std::string &str) { // pro_flag: processing "get num"
     bool pro_flag = false, neg_flag = false;
     int lb = pow(-2, 31), ub = pow(2, 31) - 1;
     double ret = 0;
