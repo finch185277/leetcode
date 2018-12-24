@@ -7,7 +7,7 @@ public:
     while (lb < hb) {
       int tmp_area = (hb - lb) * std::min(height.at(lb), height.at(hb));
       ret = std::max(ret, tmp_area);
-      if (height.at(lb) < height.at(hb))
+      if (height.at(lb) < height.at(hb)) // remain longer height
         lb++;
       else
         hb--;
