@@ -6,7 +6,7 @@ public:
       return ret;
     std::sort(nums.begin(), nums.end());
     bool first_flag = true;
-    for (int i = 0; i < nums.size() - 1; i++) {
+    for (int i = 0; i < nums.size() - 2; i++) {
       if (first_flag)
         first_flag = false;
       else if (nums.at(i) == nums.at(i - 1)) // skip duplicate
@@ -14,7 +14,8 @@ public:
 
       int lb = i + 1, hb = nums.size() - 1;
       while (lb < hb) { // double ptr
-        if (nums.at(i) + nums.at(lb) + nums.at(hb) == 0) {
+        int sum = nums.at(i) + nums.at(lb) + nums.at(hb);
+        if (sum == 0) {
           std::vector<int> tmp;
           tmp.push_back(nums.at(i));
           tmp.push_back(nums.at(lb++));
@@ -23,7 +24,7 @@ public:
             ret.push_back(tmp);
           else if (tmp != ret.back()) // skip duplicate
             ret.push_back(tmp);
-        } else if (nums.at(i) + nums.at(lb) + nums.at(hb) > 0)
+        } else if (sum > 0)
           hb--;
         else
           lb++;
