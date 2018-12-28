@@ -8,13 +8,12 @@
  */
 class Solution {
 public:
-  struct cmp_node {
-    bool operator()(const ListNode *lhs, const ListNode *rhs) {
-      return lhs->val > rhs->val;
-    }
-  };
   ListNode *mergeKLists(vector<ListNode *> &lists) {
-    std::priority_queue<ListNode *, std::vector<ListNode *>, cmp_node> pq;
+    auto cmp_node = [](const ListNode *lhs, const ListNode *rhs) {
+      return lhs->val > rhs->val;
+    };
+    std::priority_queue<ListNode *, std::vector<ListNode *>, decltype(cmp_node)>
+        pq(cmp_node);
     for (ListNode *head : lists) {
       if (head != nullptr)
         pq.push(head);
