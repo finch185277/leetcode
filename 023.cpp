@@ -8,21 +8,25 @@
  */
 class Solution {
 public:
-  ListNode *mergeKLists(vector<ListNode *> &lists) {
-    std::vector<int> nums;
-    for (ListNode *head : lists) {
-      ListNode *cur = head;
-      while (cur != nullptr) {
-        nums.push_back(cur->val);
-        cur = cur->next;
-      }
+  struct cmp_node {
+    bool operator()(const ListNode *lhs, const ListNode *rhs) {
+      return lhs->val > rhs->val;
     }
-    std::sort(nums.begin(), nums.end());
+  };
+  ListNode *mergeKLists(vector<ListNode *> &lists) {
+    std::priority_queue<ListNode *, std::vector<ListNode *>, cmp_node> pq;
+    for (ListNode *head : lists) {
+      if (head != nullptr)
+        pq.push(head);
+    }
     ListNode *dummy = new ListNode(0);
     ListNode *cur = dummy;
-    for (int i : nums) {
-      cur->next = new ListNode(i);
+    while (!pq.empty()) {
+      cur->next = new ListNode(pq.top()->val);
       cur = cur->next;
+      if (pq.top()->next != nullptr)
+        pq.push(pq.top()->next);
+      pq.pop();
     }
     return dummy->next;
   }
