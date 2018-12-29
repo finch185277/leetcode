@@ -13,7 +13,7 @@ public:
       // return "len" should include from nums
       // ex. 3 3 4 4 4 6 7 7
       // ==> 3 4 6 7 4 6 7 7
-      // => (3 4 6 7)
+      // => (3 4 6 7), return len = 4
     }
   }
 };
