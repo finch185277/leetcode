@@ -1,27 +1,19 @@
 class Solution {
-public:
-  int longestValidParentheses(string s) {
-    int left = 0, right = 0, ret = 0;
+public: // Approach 3: Using Stack
+  inline int longestValidParentheses(string s) {
+    int ret = 0;
+    std::stack<int> stk;
+    stk.push(-1);
     for (int i = 0; i < s.size(); i++) {
       if (s[i] == '(')
-        left++;
-      else
-        right++;
-      if (left == right)
-        ret = std::max(ret, right * 2);
-      else if (right >= left)
-        left = right = 0;
-    }
-    left = right = 0;
-    for (int i = s.size() - 1; i >= 0; i--) {
-      if (s[i] == '(')
-        left++;
-      else
-        right++;
-      if (left == right)
-        ret = std::max(ret, left * 2);
-      else if (left >= right)
-        left = right = 0;
+        stk.push(i);
+      else {
+        stk.pop();
+        if (stk.empty())
+          stk.push(i);
+        else
+          ret = std::max(ret, i - stk.top());
+      }
     }
     return ret;
   }
