@@ -8,11 +8,11 @@ public:
     std::unordered_map<std::string, int> words_map;
     for (std::string w : words)
       words_map[w]++;
-    for (int i = 0; i <= (int)s.size() - words_count * word_size; i++) {
+    for (int i = 0; i < (int)s.size() - words_count * word_size + 1; i++) {
       std::unordered_map<std::string, int> cur_map;
       int count = 0;
       for (; count < words_count; count++) {
-        string target = s.substr(i + count * word_size, word_size);
+        std::string target = s.substr(i + count * word_size, word_size);
         if (words_map.find(target) == words_map.end())
           break;
         cur_map[target]++;
