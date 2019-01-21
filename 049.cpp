@@ -8,8 +8,8 @@ public: // by @jianchao-li
       map[t].insert(s);
     }
     std::vector<std::vector<string>> anagrams;
-    for (auto mp : map) {
-      std::vector<std::string> anagram(mp.second.begin(), mp.second.end());
+    for (auto p : map) { // p.second = multiset
+      std::vector<std::string> anagram(p.second.begin(), p.second.end());
       anagrams.push_back(anagram);
     }
     return anagrams;
