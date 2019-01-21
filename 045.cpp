@@ -8,7 +8,7 @@ public: // by @jianchao-li
       for (int i = start; i <= end; i++) {
         if (i + nums.at(i) >= nums.size() - 1)
           return step;
-        maxend = max(maxend, i + nums.at(i));
+        maxend = std::max(maxend, i + nums.at(i));
       }
       start = end + 1;
       end = maxend;
