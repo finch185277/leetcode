@@ -1,32 +1,38 @@
 class Solution {
 private:
-  bool is_not_under_attack(int row, int col, int n, std::vector<int> &rows,
-                           std::vector<int> &hills, std::vector<int> &dales) {
-    int sum = rows.at(col) + hills.at(row - col + 2 * n) + dales.at(row + col);
-    return (sum == 0) ? true : false;
+  bool is_valid(const std::vector<std::string> &nqueens, const int row,
+                const int col, const int &n) {
+    for (int i = 0; i < row; i++)
+      if (nqueens.at(i).at(col) == 'Q')
+        return false;
+    for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--)
+      if (nqueens.at(i).at(j) == 'Q')
+        return false;
+    for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++)
+      if (nqueens.at(i).at(j) == 'Q')
+        return false;
+    return true;
   }
-  int backtrack(int row, int count, int n, std::vector<int> &rows,
-                std::vector<int> &hills, std::vector<int> &dales) {
+  void solve(int &count, std::vector<std::string> &nqueens, const int row,
+             const int &n) {
+    if (row == n) {
+      count++;
+      return;
+    }
     for (int col = 0; col < n; col++) {
-      if (is_not_under_attack(row, col, n, rows, hills, dales)) {
-        rows.at(col) = 1;
-        hills.at(row - col + 2 * n) = 1;
-        dales.at(row + col) = 1;
-        if (row + 1 == n)
-          count++;
-        else
-          count = backtrack(row + 1, count, n, rows, hills, dales);
-        rows.at(col) = 0;
-        hills.at(row - col + n * 2) = 0;
-        dales.at(row + col) = 0;
+      if (is_valid(nqueens, row, col, n)) {
+        nqueens.at(row).at(col) = 'Q';
+        solve(count, nqueens, row + 1, n);
+        nqueens.at(row).at(col) = '.';
       }
     }
-    return count;
   }
 
 public:
   int totalNQueens(int n) {
-    std::vector<int> rows(n), hills(n * 4 - 1), dales(n * 2 - 1);
-    return backtrack(0, 0, n, rows, hills, dales);
+    int count = 0;
+    std::vector<std::string> nqueens(n, std::string(n, '.'));
+    solve(count, nqueens, 0, n);
+    return count;
   }
 };
