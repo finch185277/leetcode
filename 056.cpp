@@ -9,7 +9,7 @@
  */
 class Solution {
 private:
-  inline static bool sort_intervals(Interval lhs, Interval rhs) {
+  inline static bool sort_intervals(const Interval &lhs, const Interval &rhs) {
     return lhs.start < rhs.start;
   }
 
