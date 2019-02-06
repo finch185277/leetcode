@@ -1,23 +1,14 @@
 class Solution {
-public:
+public: // by @makuiyu
   string addBinary(string a, string b) {
     std::string ret;
-    if (a.size() > b.size())
-      std::swap(a, b);                     // must size of b > a
-    a.insert(0, b.size() - a.size(), '0'); // fill the empty position
-    int carry = 0;                         // use int to operate
-    for (int i = a.size() - 1; i >= 0; i--) {
-      char sum = (a[i] - '0') + (b[i] - '0') + carry;
-      if (sum >= 2) {
-        sum -= 2;
-        carry = 1;
-      } else {
-        carry = 0;
-      }
-      ret.insert(0, 1, '0' + sum); // push the (char)sum to head
+    int i = a.size() - 1, j = b.size() - 1, carry = 0; // use int to operate
+    while (i >= 0 || j >= 0 || carry == 1) {
+      carry += i >= 0 ? (a[i--] - '0') : 0;
+      carry += j >= 0 ? (b[j--] - '0') : 0;
+      ret = char(carry % 2 + '0') + ret; // push the (char)sum to head
+      carry /= 2;
     }
-    if (carry == 1)
-      ret.insert(0, 1, '1');
     return ret;
   }
 };
