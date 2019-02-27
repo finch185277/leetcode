@@ -1,10 +1,9 @@
 class Solution {
-public: // by @yuyibestman
-  vector<int> grayCode(int n) {
-    std::vector<int> ret(1, 0);
-    for (int i = 0; i < n; i++)
-      for (int k = ret.size() - 1; k >= 0; k--)
-        ret.push_back(ret.at(k) | 1 << i);
-    return ret;
+public: // by @deck
+  void merge(vector<int> &nums1, int m, vector<int> &nums2, int n) {
+    int i = m - 1, j = n - 1, cur = m + n - 1;
+    while (j >= 0)
+      nums1.at(cur--) =
+          i >= 0 && nums1.at(i) > nums2.at(j) ? nums1.at(i--) : nums2.at(j--);
   }
 };
