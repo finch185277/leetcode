@@ -13,24 +13,22 @@ class Solution {
 private:
   std::vector<node *> gen_trees(int start, int end) {
     std::vector<node *> ret;
-    if (start > end) {
+    if (start > end)
       ret.push_back(nullptr);
-      return ret;
-    }
-    if (start == end) {
+    else if (start == end)
       ret.push_back(new node(start));
-      return ret;
-    }
-    std::vector<node *> left, right;
-    for (int i = start; i <= end; i++) {
-      left = gen_trees(start, i - 1);
-      right = gen_trees(i + 1, end);
-      for (node *lnode : left) {
-        for (node *rnode : right) {
-          node *root = new node(i);
-          root->left = lnode;
-          root->right = rnode;
-          ret.push_back(root);
+    else {
+      std::vector<node *> left, right;
+      for (int i = start; i <= end; i++) {
+        left = gen_trees(start, i - 1);
+        right = gen_trees(i + 1, end);
+        for (node *lnode : left) {
+          for (node *rnode : right) {
+            node *root = new node(i);
+            root->left = lnode;
+            root->right = rnode;
+            ret.push_back(root);
+          }
         }
       }
     }
