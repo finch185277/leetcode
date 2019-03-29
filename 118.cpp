@@ -1,6 +1,6 @@
 class Solution {
 public: // by Approach 1: Dynamic Programming
-  vector<vector<int>> generate(int numRows) {
+  std::vector<std::vector<int>> generate(int numRows) {
     std::vector<std::vector<int>> ret;
     if (numRows != 0) {
       ret.emplace_back();
