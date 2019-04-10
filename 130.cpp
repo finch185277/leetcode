@@ -16,7 +16,7 @@ private:
   }
 
 public: // by @sugeladi
-  void solve(vector<vector<char>> &board) {
+  void solve(std::vector<std::vector<char>> &board) {
     if (board.empty() || board.front().empty())
       return;
     int i, j, row = board.size(), col = board.front().size();
